@@ -1,0 +1,16 @@
+# Example terraform.tfvars for Sprint 1 - Backend
+# Copy this file to terraform.tfvars and customize for your environment
+
+# Basic Configuration
+resource_group_name      = "rg-terraform-backend"
+location                = "West Europe"
+storage_account_prefix  = "stterraform"  # Will be suffixed with random string
+container_name          = "tfstate"
+
+# Tags
+tags = {
+  Environment = "workshop"
+  Purpose     = "terraform-backend"
+  ManagedBy   = "terraform"
+  Owner       = "your-name"
+}
