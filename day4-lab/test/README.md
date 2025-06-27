@@ -1,71 +1,86 @@
 # Test Suite for Terraform Workshop
 
-This directory contains automated tests for validating the Terraform workshop infrastructure.
+This directory contains automated tests for validating the Terraform workshop infrastructure using Terraform's native testing framework.
 
 ## Overview
 
 The test suite validates:
 - Resource existence and configuration
-- Network connectivity
+- Network connectivity  
 - Security configurations
 - Application functionality
-- End-to-end integration
+- Module integration
 
 ## Prerequisites
 
-- Go 1.19+
-- Terratest library
-- Azure CLI authenticated
-- Terraform modules deployed
+- Terraform 1.6+ (for native test support)
+- Azure CLI authenticated (if running apply tests)
+- Access to Azure subscription
+
+## Test Files
+
+Each module contains a `tests.tftest.hcl` file with comprehensive test cases:
+
+```
+00-backend/tests.tftest.hcl   # Sprint 1 tests
+01-network/tests.tftest.hcl   # Sprint 2 tests  
+02-keyvault/tests.tftest.hcl  # Sprint 3 tests
+03-app/tests.tftest.hcl       # Sprint 4 tests
+04-data/tests.tftest.hcl      # Sprint 5 tests
+```
 
 ## Running Tests
 
-### All Tests
+### All Tests (Automated)
 ```bash
 cd day4-lab/test
-go test -v ./...
+./run-tests.sh
 ```
 
-### Specific Module Tests
+### Individual Module Tests
 ```bash
-# Backend tests
-go test -v ./backend
+# Backend tests (Sprint 1)
+cd day4-lab/00-backend
+terraform test
 
-# Network tests  
-go test -v ./network
+# Network tests (Sprint 2)
+cd day4-lab/01-network  
+terraform test
 
-# Key Vault tests
-go test -v ./keyvault
+# Key Vault tests (Sprint 3)
+cd day4-lab/02-keyvault
+terraform test
 
-# App Service tests
-go test -v ./app
+# App Service tests (Sprint 4)
+cd day4-lab/03-app
+terraform test
 
-# Database tests
-go test -v ./data
+# Database tests (Sprint 5)
+cd day4-lab/04-data
+terraform test
 ```
 
-### Integration Tests
-```bash
-go test -v ./integration
-```
+## Test Types
 
-## Test Structure
+### Plan Tests
+- Validate resource configuration
+- Check naming conventions
+- Verify variable validation
+- Test default and custom values
 
-```
-test/
-├── backend/     # Sprint 1 tests
-├── network/     # Sprint 2 tests
-├── keyvault/    # Sprint 3 tests
-├── app/         # Sprint 4 tests
-├── data/        # Sprint 5 tests
-├── integration/ # End-to-end tests
-└── common/      # Shared test utilities
-```
+### Apply Tests (Optional)
+- Validate actual resource creation
+- Test connectivity and functionality
+- Verify security configurations
 
 ## Test Output
 
 Tests generate `test.out` file with detailed results for review.
 
-## CI/CD Integration
+## Benefits of Terraform Tests
 
-Tests can be integrated into CI/CD pipelines for automated validation.
+- **Native Integration**: No external dependencies like Go or Terratest
+- **Fast Execution**: Plan-based tests run quickly without Azure resources
+- **Built-in Assertions**: Terraform-native assertion syntax
+- **Module Validation**: Direct testing of Terraform configurations
+- **CI/CD Ready**: Easy integration into automation pipelines

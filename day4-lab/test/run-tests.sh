@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Test runner script for Terraform Workshop
-# This script runs tests and generates test.out file
+# This script runs Terraform tests and generates test.out file
 
 set -e
 
@@ -10,6 +10,7 @@ echo "===================================="
 
 # Create test output directory
 TEST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+WORKSHOP_DIR="$(dirname "$TEST_DIR")"
 OUTPUT_FILE="$TEST_DIR/test.out"
 
 # Clear previous test output
@@ -18,58 +19,53 @@ OUTPUT_FILE="$TEST_DIR/test.out"
 # Function to run tests for a module
 run_module_tests() {
     local module=$1
+    local module_dir="$WORKSHOP_DIR/$module"
+    
     echo "Running tests for $module..." | tee -a "$OUTPUT_FILE"
     
-    if [ -d "$TEST_DIR/$module" ]; then
-        cd "$TEST_DIR/$module"
-        if go test -v . >> "$OUTPUT_FILE" 2>&1; then
+    if [ -d "$module_dir" ] && [ -f "$module_dir/tests.tftest.hcl" ]; then
+        cd "$module_dir"
+        if terraform init >> "$OUTPUT_FILE" 2>&1 && terraform test >> "$OUTPUT_FILE" 2>&1; then
             echo "✅ $module tests PASSED" | tee -a "$OUTPUT_FILE"
         else
             echo "❌ $module tests FAILED" | tee -a "$OUTPUT_FILE"
             return 1
         fi
     else
-        echo "⚠️  $module test directory not found" | tee -a "$OUTPUT_FILE"
+        echo "⚠️  $module test file not found" | tee -a "$OUTPUT_FILE"
     fi
     echo "" | tee -a "$OUTPUT_FILE"
 }
 
-# Check if Go is installed
-if ! command -v go &> /dev/null; then
-    echo "❌ Go is not installed. Please install Go 1.19+ to run tests." | tee -a "$OUTPUT_FILE"
+# Check if Terraform is installed
+if ! command -v terraform &> /dev/null; then
+    echo "❌ Terraform is not installed. Please install Terraform 1.6+ to run tests." | tee -a "$OUTPUT_FILE"
     exit 1
 fi
 
-# Initialize Go modules if needed
-cd "$TEST_DIR"
-if [ ! -f "go.sum" ]; then
-    echo "Initializing Go modules..." | tee -a "$OUTPUT_FILE"
-    go mod tidy >> "$OUTPUT_FILE" 2>&1
-fi
+# Check Terraform version (tests require Terraform 1.6+)
+TERRAFORM_VERSION=$(terraform version -json | grep -o '"version":"[^"]*' | grep -o '[^"]*$' | head -1)
+echo "Using Terraform version: $TERRAFORM_VERSION" | tee -a "$OUTPUT_FILE"
+
+# Convert module names to their directory names
+declare -A MODULE_DIRS=(
+    ["backend"]="00-backend"
+    ["network"]="01-network"
+    ["keyvault"]="02-keyvault"
+    ["app"]="03-app"
+    ["data"]="04-data"
+)
 
 # Run tests for each module in order
 MODULES=("backend" "network" "keyvault" "app" "data")
 FAILED_MODULES=()
 
 for module in "${MODULES[@]}"; do
-    if ! run_module_tests "$module"; then
+    module_dir="${MODULE_DIRS[$module]}"
+    if ! run_module_tests "$module_dir"; then
         FAILED_MODULES+=("$module")
     fi
 done
-
-# Run integration tests if all module tests passed
-if [ ${#FAILED_MODULES[@]} -eq 0 ]; then
-    echo "Running integration tests..." | tee -a "$OUTPUT_FILE"
-    if [ -d "$TEST_DIR/integration" ]; then
-        cd "$TEST_DIR/integration"
-        if go test -v . >> "$OUTPUT_FILE" 2>&1; then
-            echo "✅ Integration tests PASSED" | tee -a "$OUTPUT_FILE"
-        else
-            echo "❌ Integration tests FAILED" | tee -a "$OUTPUT_FILE"
-            FAILED_MODULES+=("integration")
-        fi
-    fi
-fi
 
 # Summary
 echo "" | tee -a "$OUTPUT_FILE"
