@@ -56,4 +56,61 @@ nslookup <db-fqdn>  # Should resolve to 10.x address
 - `private_endpoint_ip` - Private IP address of the SQL Server
 
 <!-- BEGIN_TF_DOCS -->
+
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 3.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 3.0 |
+
+## Resources
+
+| random_string | resource |
+| random_password | resource |
+| azurerm_resource_group | resource |
+| azurerm_mssql_server | resource |
+| azurerm_mssql_database | resource |
+| azurerm_private_dns_zone | resource |
+| azurerm_private_dns_zone_virtual_network_link | resource |
+| azurerm_private_endpoint | resource |
+| azurerm_network_security_rule | resource |
+
+## Inputs
+
+| <a name="input_network_resource_group_name"></a> [network_resource_group_name](#input\_network_resource_group_name) | n/a | no |
+| <a name="input_vnet_name"></a> [vnet_name](#input\_vnet_name) | n/a | no |
+| <a name="input_data_subnet_name"></a> [data_subnet_name](#input\_data_subnet_name) | n/a | no |
+| <a name="input_nsg_name"></a> [nsg_name](#input\_nsg_name) | n/a | no |
+| <a name="input_resource_group_name"></a> [resource_group_name](#input\_resource_group_name) | n/a | no |
+| <a name="input_location"></a> [location](#input\_location) | n/a | no |
+| <a name="input_sql_server_name"></a> [sql_server_name](#input\_sql_server_name) | n/a | no |
+| <a name="input_sql_database_name"></a> [sql_database_name](#input\_sql_database_name) | n/a | no |
+| <a name="input_sql_admin_username"></a> [sql_admin_username](#input\_sql_admin_username) | n/a | no |
+| <a name="input_private_endpoint_name"></a> [private_endpoint_name](#input\_private_endpoint_name) | n/a | no |
+| <a name="input_azuread_admin_login"></a> [azuread_admin_login](#input\_azuread_admin_login) | n/a | no |
+| <a name="input_azuread_admin_object_id"></a> [azuread_admin_object_id](#input\_azuread_admin_object_id) | n/a | no |
+| <a name="input_azuread_admin_tenant_id"></a> [azuread_admin_tenant_id](#input\_azuread_admin_tenant_id) | n/a | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | n/a | no |
+
+## Outputs
+
+| sql_server_name | n/a |
+| sql_server_id | n/a |
+| sql_server_fqdn | n/a |
+| sql_database_name | n/a |
+| sql_database_id | n/a |
+| private_endpoint_id | n/a |
+| private_endpoint_ip | n/a |
+| private_dns_zone_name | n/a |
+| resource_group_name | n/a |
+| sql_admin_password | n/a |
+| connection_string | n/a |
+
 <!-- END_TF_DOCS -->

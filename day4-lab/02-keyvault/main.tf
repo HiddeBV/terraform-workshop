@@ -70,6 +70,9 @@ resource "azurerm_key_vault" "main" {
 
   sku_name = "standard"
 
+  # Enable RBAC authorization instead of access policies
+  enable_rbac_authorization = true
+
   # Enable soft delete and purge protection for production scenarios
   soft_delete_retention_days = 7
   purge_protection_enabled   = false # Set to true for production
@@ -83,34 +86,18 @@ resource "azurerm_key_vault" "main" {
   tags = var.tags
 }
 
-# Access policy for current user/service principal
-resource "azurerm_key_vault_access_policy" "current_user" {
-  key_vault_id = azurerm_key_vault.main.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = data.azurerm_client_config.current.object_id
-
-  key_permissions = [
-    "Get", "List", "Create", "Delete", "Update", "Recover", "Backup", "Restore"
-  ]
-
-  secret_permissions = [
-    "Get", "List", "Set", "Delete", "Recover", "Backup", "Restore"
-  ]
-
-  certificate_permissions = [
-    "Get", "List", "Create", "Delete", "Update", "Import"
-  ]
+# RBAC role assignment for current user/service principal to manage secrets
+resource "azurerm_role_assignment" "current_user_secrets_officer" {
+  scope                = azurerm_key_vault.main.id
+  role_definition_name = "Key Vault Secrets Officer"
+  principal_id         = data.azurerm_client_config.current.object_id
 }
 
-# Access policy for managed identity
-resource "azurerm_key_vault_access_policy" "managed_identity" {
-  key_vault_id = azurerm_key_vault.main.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = azurerm_user_assigned_identity.app.principal_id
-
-  secret_permissions = [
-    "Get", "List"
-  ]
+# RBAC role assignment for managed identity to read secrets (least privilege)
+resource "azurerm_role_assignment" "managed_identity_secrets_user" {
+  scope                = azurerm_key_vault.main.id
+  role_definition_name = "Key Vault Secrets User"
+  principal_id         = azurerm_user_assigned_identity.app.principal_id
 }
 
 # Sample secret for database connection string
@@ -119,7 +106,7 @@ resource "azurerm_key_vault_secret" "db_connection_string" {
   value        = "Server=tcp:${var.database_server_name}.database.windows.net,1433;Database=${var.database_name};User ID=${var.database_admin_username};Password=${var.database_admin_password};Trusted_Connection=False;Encrypt=True;Connection Timeout=30;"
   key_vault_id = azurerm_key_vault.main.id
 
-  depends_on = [azurerm_key_vault_access_policy.current_user]
+  depends_on = [azurerm_role_assignment.current_user_secrets_officer]
 
   tags = var.tags
 }
@@ -134,7 +121,7 @@ resource "azurerm_key_vault_secret" "app_config" {
   })
   key_vault_id = azurerm_key_vault.main.id
 
-  depends_on = [azurerm_key_vault_access_policy.current_user]
+  depends_on = [azurerm_role_assignment.current_user_secrets_officer]
 
   tags = var.tags
 }

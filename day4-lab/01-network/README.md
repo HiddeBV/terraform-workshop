@@ -43,4 +43,53 @@ This module creates exactly **5 resources** as required:
 - `nsg_id` - ID of the network security group
 
 <!-- BEGIN_TF_DOCS -->
+
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 3.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 3.0 |
+
+## Resources
+
+| azurerm_resource_group | resource |
+| azurerm_virtual_network | resource |
+| azurerm_subnet | resource |
+| azurerm_subnet | resource |
+| azurerm_network_security_group | resource |
+| azurerm_subnet_network_security_group_association | resource |
+
+## Inputs
+
+| <a name="input_backend_resource_group_name"></a> [backend_resource_group_name](#input\_backend_resource_group_name) | n/a | no |
+| <a name="input_resource_group_name"></a> [resource_group_name](#input\_resource_group_name) | n/a | no |
+| <a name="input_location"></a> [location](#input\_location) | n/a | no |
+| <a name="input_vnet_name"></a> [vnet_name](#input\_vnet_name) | n/a | no |
+| <a name="input_vnet_address_space"></a> [vnet_address_space](#input\_vnet_address_space) | n/a | no |
+| <a name="input_app_subnet_name"></a> [app_subnet_name](#input\_app_subnet_name) | n/a | no |
+| <a name="input_app_subnet_address_prefix"></a> [app_subnet_address_prefix](#input\_app_subnet_address_prefix) | n/a | no |
+| <a name="input_data_subnet_name"></a> [data_subnet_name](#input\_data_subnet_name) | n/a | no |
+| <a name="input_data_subnet_address_prefix"></a> [data_subnet_address_prefix](#input\_data_subnet_address_prefix) | n/a | no |
+| <a name="input_nsg_name_prefix"></a> [nsg_name_prefix](#input\_nsg_name_prefix) | n/a | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | n/a | no |
+
+## Outputs
+
+| vnet_name | n/a |
+| vnet_id | n/a |
+| resource_group_name | n/a |
+| app_subnet_id | n/a |
+| app_subnet_name | n/a |
+| data_subnet_id | n/a |
+| data_subnet_name | n/a |
+| nsg_id | n/a |
+| nsg_name | n/a |
+
 <!-- END_TF_DOCS -->
