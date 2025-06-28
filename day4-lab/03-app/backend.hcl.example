@@ -1,0 +1,14 @@
+# Backend Configuration Template for Sprint 4 - App Service
+# 
+# 1. Complete Sprint 1 (00-backend bootstrap) first
+# 2. Get the outputs from the bootstrap script:
+#    - storage_account_name
+#    - resource_group_name  
+#    - container_name
+# 3. Update the values below with the bootstrap outputs
+# 4. Run: terraform init -backend-config=backend.hcl
+
+resource_group_name  = "rg-terraform-backend-xxxxxxxx"  # From bootstrap output
+storage_account_name = "stterraformxxxxxxxx"            # From bootstrap output
+container_name       = "tfstate"                        # From bootstrap output
+key                  = "app.tfstate"
