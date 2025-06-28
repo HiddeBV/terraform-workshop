@@ -5,10 +5,9 @@ This guide will help you set up and complete the Terraform Workshop successfully
 ## 🛠️ Prerequisites
 
 ### Required Tools
-- **Terraform** v1.0+ ([Download](https://terraform.io/downloads))
+- **Terraform** v1.12.2+ ([Download](https://terraform.io/downloads))
 - **Azure CLI** ([Install Guide](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli))
 - **terraform-docs** v0.20+ ([Install Guide](https://terraform-docs.io/user-guide/installation/))
-- **Go** 1.19+ (for running tests) ([Download](https://golang.org/downloads/))
 
 ### Azure Requirements
 - Azure subscription with appropriate permissions
