@@ -1,0 +1,29 @@
+# Backend Configuration Template for Sprint 2 - Network
+# 
+# 1. Complete Sprint 1 (00-backend) first
+# 2. Get the outputs from Sprint 1:
+#    - storage_account_name
+#    - resource_group_name  
+#    - container_name
+# 3. Update the backend configuration in main.tf with these values
+# 4. Run: terraform init
+
+# Example backend configuration to add to main.tf:
+# 
+# terraform {
+#   backend "azurerm" {
+#     resource_group_name  = "rg-terraform-backend-xxxxxxxx"  # From Sprint 1 output
+#     storage_account_name = "stterraformxxxxxxxx"            # From Sprint 1 output
+#     container_name       = "tfstate"                        # From Sprint 1 output
+#     key                  = "network.tfstate"
+#   }
+# }
+
+# Alternative: Use backend configuration file
+# Create backend.hcl with:
+resource_group_name  = "rg-terraform-backend-xxxxxxxx"
+storage_account_name = "stterraformxxxxxxxx"
+container_name       = "tfstate"
+key                  = "network.tfstate"
+
+# Then run: terraform init -backend-config=backend.hcl

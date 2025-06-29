@@ -1,0 +1,10 @@
+# Generated files from bootstrap process
+backend-config.tf
+terraform.tfvars
+migration-instructions.md
+
+# Terraform files
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl

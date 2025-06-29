@@ -1,0 +1,26 @@
+# Example terraform.tfvars for Sprint 2 - Network
+# Copy this file to terraform.tfvars and customize for your environment
+
+# Backend Configuration (from Sprint 1)
+backend_resource_group_name = "rg-terraform-backend-xxxxxxxx"  # Update with actual name from Sprint 1
+
+# Basic Configuration
+resource_group_name = "rg-terraform-network"
+location           = "West Europe"
+
+# Network Configuration
+vnet_name                    = "vnet-workshop"
+vnet_address_space          = "10.0.0.0/16"
+app_subnet_name             = "snet-app"
+app_subnet_address_prefix   = "10.0.1.0/24"
+data_subnet_name            = "snet-data"
+data_subnet_address_prefix  = "10.0.2.0/24"
+nsg_name_prefix             = "nsg-workshop"
+
+# Tags
+tags = {
+  Environment = "workshop"
+  Sprint      = "02-network"
+  ManagedBy   = "terraform"
+  Owner       = "your-name"
+}
