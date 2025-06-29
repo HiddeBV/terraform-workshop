@@ -1,14 +1,83 @@
-# Sprint 4 - App Service Plan & App Service
+# Sprint 4 - App Service Plan & App Service + Hello World Deploy
 
-This module creates Azure App Service Plan and App Service with a Hello World application.
+This lab teaches application hosting using **modular Terraform architecture**. Choose your learning path below!
 
-## Overview
+## 🛤️ Choose Your Learning Path
 
-Creates:
-- App Service Plan
-- App Service (Web App)
-- App Service configuration with Key Vault integration
+### 🔨 Path 1: Build Your Own Module (Recommended)
+**Best for**: Learning application architecture, VNet integration, managed identity patterns
+- Start with starter templates in `modules/app-service-starter/`  
+- Build secure App Service with managed identity step-by-step
+- Learn application security and configuration patterns
+- **Time**: 60-75 minutes | **Learning**: Maximum
+
+### 🏭 Path 2: Use Complete Local Module
+**Best for**: Focus on application deployment and integration patterns
+- Use ready-made module in `modules/app-service/`
+- Focus on application configuration and Key Vault integration
+- Learn deployment and hosting patterns
+- **Time**: 30-45 minutes | **Learning**: Moderate
+
+### 🌐 Path 3: Use Registry Module
+**Best for**: Production application hosting patterns
+- Follow examples in [REGISTRY-MODULE-EXAMPLES.md](../REGISTRY-MODULE-EXAMPLES.md)
+- Learn enterprise application hosting
+- See production App Service configurations
+- **Time**: 35-45 minutes | **Learning**: Different focus
+
+> 💡 **Application Focus**: All paths deploy the same "Hello World" application with secure Key Vault integration!
+
+## 📚 What You'll Create
+
+All paths create the same application infrastructure:
+- App Service Plan with appropriate sizing
+- App Service (Web App) with managed identity
+- VNet integration for secure outbound connectivity
+- Application configuration with Key Vault integration
 - Hello World application deployment
+
+## 🚀 Getting Started
+
+### For Path 1: Build Your Own Module
+
+1. **Start with the starter template**:
+   ```bash
+   cd 03-app/modules/app-service-starter/
+   cat README.md  # Read the application building guide
+   ```
+
+2. **Configure main.tf to use your module**:
+   ```hcl
+   module "app_service" {
+     source = "./modules/app-service-starter"  # 👈 Point to your module
+     
+     # ... same variables as other paths
+   }
+   ```
+
+3. **Build incrementally with application focus**:
+   - Fill in `modules/app-service-starter/main.tf`
+   - Focus on VNet integration and managed identity
+   - Test with `terraform validate` and `terraform plan`
+
+### For Path 2: Use Complete Module
+
+1. **Use the provided module** (already configured):
+   ```hcl
+   module "app_service" {
+     source = "./modules/app-service"  # 👈 Complete implementation
+     
+     # ... your configuration
+   }
+   ```
+
+2. **Focus on application integration patterns**
+
+### For Path 3: Use Registry Module
+
+1. **Follow the registry examples**:
+   - See [REGISTRY-MODULE-EXAMPLES.md](../REGISTRY-MODULE-EXAMPLES.md)
+   - Replace the local module source with registry source
 
 ## Prerequisites
 
