@@ -1,15 +1,83 @@
 # Sprint 5 - SQL Database & Private Endpoint
 
-This module creates Azure SQL Database with Private Endpoint for secure network connectivity.
+This lab teaches secure database architecture using **modular Terraform patterns**. Choose your learning path below!
 
-## Overview
+## 🛤️ Choose Your Learning Path
 
-Creates:
-- Azure SQL Server
-- Azure SQL Database
-- Private Endpoint for SQL Server
-- Private DNS Zone for private link
-- Network integration for secure connectivity
+### 🔨 Path 1: Build Your Own Module (Recommended)
+**Best for**: Learning database security, private networking, DNS integration
+- Start with starter templates in `modules/database-starter/`  
+- Build secure database with private endpoint step-by-step
+- Learn private networking and DNS patterns
+- **Time**: 45-60 minutes | **Learning**: Maximum
+
+### 🏭 Path 2: Use Complete Local Module
+**Best for**: Focus on database integration and private connectivity
+- Use ready-made module in `modules/database/`
+- Focus on private endpoint configuration
+- Learn database security patterns
+- **Time**: 20-35 minutes | **Learning**: Moderate
+
+### 🌐 Path 3: Use Registry Module
+**Best for**: Production database patterns, enterprise security
+- Follow examples in [REGISTRY-MODULE-EXAMPLES.md](../REGISTRY-MODULE-EXAMPLES.md)
+- Learn enterprise database configurations
+- See production security patterns
+- **Time**: 25-35 minutes | **Learning**: Different focus
+
+> 💡 **Security Focus**: All paths create the same secure database accessible only via private endpoint!
+
+## 📚 What You'll Create
+
+All paths create the same secure database infrastructure:
+- Azure SQL Server with security configurations
+- Azure SQL Database with appropriate sizing
+- Private Endpoint for secure network access
+- Private DNS Zone for internal name resolution
+- Network integration ensuring database isolation
+
+## 🚀 Getting Started
+
+### For Path 1: Build Your Own Module
+
+1. **Start with the starter template**:
+   ```bash
+   cd 04-data/modules/database-starter/
+   cat README.md  # Read the database building guide
+   ```
+
+2. **Configure main.tf to use your module**:
+   ```hcl
+   module "database" {
+     source = "./modules/database-starter"  # 👈 Point to your module
+     
+     # ... same variables as other paths
+   }
+   ```
+
+3. **Build incrementally with security focus**:
+   - Fill in `modules/database-starter/main.tf`
+   - Focus on private networking and DNS
+   - Test with `terraform validate` and `terraform plan`
+
+### For Path 2: Use Complete Module
+
+1. **Use the provided module** (already configured):
+   ```hcl
+   module "database" {
+     source = "./modules/database"  # 👈 Complete implementation
+     
+     # ... your configuration
+   }
+   ```
+
+2. **Focus on private endpoint integration**
+
+### For Path 3: Use Registry Module
+
+1. **Follow the registry examples**:
+   - See [REGISTRY-MODULE-EXAMPLES.md](../REGISTRY-MODULE-EXAMPLES.md)
+   - Replace the local module source with registry source
 
 ## Prerequisites
 

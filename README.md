@@ -108,17 +108,42 @@ make clean   # Clean up temporary files
 
 ## 🏗️ Module Architecture
 
-This workshop has been designed to teach **modular Terraform architecture**:
+This workshop teaches **modular Terraform architecture** with **three learning pathways**:
+
+### 🛤️ Choose Your Learning Path
+
+**🔨 Path 1: Build Your Own Modules** (Recommended for Learning)
+- Learn by building modules from scratch using starter templates
+- Understand every resource and configuration decision
+- Develop strong Terraform skills and confidence
+- **Focus**: Deep understanding and skill development
+
+**🏭 Path 2: Use Complete Local Modules** (Faster Completion)  
+- Use ready-made modules to focus on composition patterns
+- Learn module interfaces and integration
+- Complete the workshop more quickly
+- **Focus**: Module usage and architectural patterns
+
+**🌐 Path 3: Use Registry Modules** (Production Patterns)
+- Explore community-maintained, production-ready modules  
+- Learn industry best practices and patterns
+- See how external modules integrate
+- **Focus**: Production readiness and community standards
+
+Each sprint supports all three paths - choose based on your learning goals and time!
+
+### Sprint Structure
 
 - **Sprint 1**: Backend setup (foundation)
-- **Sprint 2**: Network module (local modules introduction)  
-- **Sprint 3**: Key Vault module (security patterns)
-- **Sprint 4**: App Service module (application hosting)
-- **Sprint 5**: Database module (data tier with private connectivity)
+- **Sprint 2**: Network module (🔨 build/🏭 use/🌐 registry options)  
+- **Sprint 3**: Key Vault module (🔨 build/🏭 use/🌐 registry options)
+- **Sprint 4**: App Service module (🔨 build/🏭 use/🌐 registry options)
+- **Sprint 5**: Database module (🔨 build/🏭 use/🌐 registry options)
 - **Sprint 6**: Exam practice (knowledge validation)
 
-Each sprint demonstrates local modules with progression from monolithic to modular design. See:
-- 📖 [MODULE-USAGE-GUIDE.md](day4-lab/MODULE-USAGE-GUIDE.md) - Complete guide to module patterns
+Each sprint demonstrates progression from monolithic to modular design with choice of implementation approach. See:
+- 🔨 [BUILD-YOUR-OWN-GUIDE.md](day4-lab/BUILD-YOUR-OWN-GUIDE.md) - Step-by-step module building guide
+- 📖 [MODULE-USAGE-GUIDE.md](day4-lab/MODULE-USAGE-GUIDE.md) - Complete guide to all module patterns  
 - 🚀 [REGISTRY-MODULE-EXAMPLES.md](day4-lab/REGISTRY-MODULE-EXAMPLES.md) - Production-ready registry examples
 
 ## 🎯 Deliverables

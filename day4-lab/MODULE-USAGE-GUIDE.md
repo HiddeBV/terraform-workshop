@@ -1,19 +1,47 @@
 # Module Usage Guide
 
-This guide demonstrates different ways to use Terraform modules, building on the patterns established in day 3 of the course where you already published modules to the Terraform Registry.
+This guide demonstrates different ways to use Terraform modules, **with emphasis on building your own modules first** before exploring pre-built alternatives.
 
-## Module Types and Sources
+## 🛤️ Three Learning Pathways
 
-### 1. Local Modules (Demonstrated in Labs)
+### 🔨 1. Build Your Own Modules (Recommended for Learning)
 
-Local modules are stored in the same repository as your root configuration. Perfect for:
-- Project-specific components
-- Development and testing
-- Custom business logic
+**Perfect for**: Understanding module internals, mastering Terraform concepts, building confidence
 
+Local modules that you build from scratch using starter templates:
 ```hcl
 module "network" {
-  source = "./modules/network"
+  source = "./modules/network-starter"  # Your custom implementation
+  
+  resource_group_name = var.resource_group_name
+  location           = var.location
+  # ... your variables
+}
+```
+
+**Benefits:**
+- ✅ Deep understanding of every resource and configuration
+- ✅ Learn Terraform syntax and best practices hands-on
+- ✅ Confidence to modify and extend functionality
+- ✅ Understanding of resource dependencies and relationships
+- ✅ No external dependencies while learning
+
+**Use when:**
+- You're learning Terraform and want to understand how things work
+- Building project-specific infrastructure with custom requirements
+- Need to understand every component for troubleshooting
+- Want to develop strong Terraform skills
+
+**Time investment:** Higher, but much more educational
+
+### 🏭 2. Local Modules (Pre-built for this Workshop)
+
+**Perfect for**: Focusing on module usage patterns, faster workshop completion
+
+Local modules that are complete and ready to use:
+```hcl
+module "network" {
+  source = "./modules/network"  # Complete implementation provided
   
   resource_group_name = var.resource_group_name
   location           = var.location
@@ -22,20 +50,22 @@ module "network" {
 ```
 
 **Benefits:**
-- ✅ Full control over module code
-- ✅ Easy debugging and modification  
-- ✅ Version control with your project
-- ✅ No external dependencies
+- ✅ Fast implementation and completion
+- ✅ Focus on module composition and integration patterns
+- ✅ Learn module interfaces and output usage
+- ✅ Version controlled with your project
 
 **Use when:**
-- Building project-specific infrastructure
-- Prototyping new patterns
-- Need immediate customization
+- You want to focus on module usage rather than development
+- Time is limited but you want to complete the workshop
+- You're already comfortable with Terraform syntax
+- Building production systems with proven patterns
 
-### 2. Terraform Registry Modules
+### 🌐 3. Terraform Registry Modules
 
-Public modules from the official Terraform Registry. You already have experience with these from day 3!
+**Perfect for**: Production scenarios, battle-tested solutions, following community best practices
 
+Public modules from the official Terraform Registry:
 ```hcl
 module "network" {
   source  = "Azure/network/azurerm"
@@ -50,19 +80,66 @@ module "network" {
 
 **Benefits:**
 - ✅ Community tested and maintained
-- ✅ Semantic versioning
+- ✅ Semantic versioning and stability
 - ✅ Comprehensive documentation
-- ✅ Best practices built-in
+- ✅ Industry best practices built-in
+- ✅ Regular updates and security patches
 
 **Use when:**
-- Need battle-tested, standard components
-- Want to follow Azure best practices
 - Building production systems
-- Need comprehensive feature sets
+- Want to follow Azure/AWS best practices
+- Need comprehensive, feature-rich modules
+- Prefer community-supported code
 
-### 3. Private Registry Modules
+## 🎯 Recommended Learning Path
 
-Your own modules published to a private registry (like you did on day 3):
+1. **Start with Build Your Own** (Path 1) - Learn the fundamentals
+2. **Compare with Pre-built** (Path 2) - See different implementation approaches  
+3. **Explore Registry Modules** (Path 3) - Understand production patterns
+
+This progression gives you:
+- Deep understanding → Fast implementation → Production readiness
+
+## 🔄 Easy Switching Between Approaches
+
+Each lab provides all three options. Simply change the source:
+
+```hcl
+# Build your own (recommended for learning)
+module "network" {
+  source = "./modules/network-starter"
+  # ... your configuration
+}
+
+# Use complete local module (faster completion)
+module "network" {
+  source = "./modules/network"
+  # ... same configuration
+}
+
+# Use registry module (production patterns)
+module "network" {
+  source  = "Azure/network/azurerm"
+  version = "~> 5.0"
+  # ... registry module configuration (see REGISTRY-MODULE-EXAMPLES.md)
+}
+```
+
+## 📚 Module Development Guide
+
+### Build Your Own Modules
+
+Each lab includes:
+- **Starter templates** in `modules/[name]-starter/` directories
+- **Step-by-step guides** in module README files
+- **Building hints** and tips for common challenges
+- **Validation steps** to ensure correctness
+
+See [BUILD-YOUR-OWN-GUIDE.md](BUILD-YOUR-OWN-GUIDE.md) for comprehensive building instructions.
+
+## Additional Module Sources
+
+### Private Registry Modules
 
 ```hcl
 module "custom_network" {
@@ -73,9 +150,7 @@ module "custom_network" {
 }
 ```
 
-### 4. Git Repository Modules
-
-Modules stored in git repositories:
+### Git Repository Modules
 
 ```hcl
 module "network" {
