@@ -3,19 +3,20 @@
 ## 🎯 Azure App Service Stack with Terraform
 
 **Audience**: Trainees who already know Terraform fundamentals  
-**Time-box**: ±4 hours, split into 5 sprints (+ bonus)  
+**Time-box**: ±5 hours, split into 6 sprints (+ bonus)  
 **Workflow**: tick every task → commit → tag part-complete
 
 ## 📋 Repository Structure
 
 ```
 /day4-lab
-├── 00-backend/   # Sprint 1 → Remote backend setup
-├── 01-network/   # Sprint 2 → VNet foundation with NSG
-├── 02-keyvault/  # Sprint 3 → Key Vault & IAM
-├── 03-app/       # Sprint 4 → App Service Plan & App Service
-├── 04-data/      # Sprint 5 → SQL Database & Private Endpoint
-└── test/         # Tests per module
+├── 00-backend/     # Sprint 1 → Remote backend setup
+├── 01-network/     # Sprint 2 → VNet foundation with NSG
+├── 02-keyvault/    # Sprint 3 → Key Vault & IAM
+├── 03-app/         # Sprint 4 → App Service Plan & App Service
+├── 04-data/        # Sprint 5 → SQL Database & Private Endpoint
+├── 05-exam-practice/ # Sprint 6 → Terraform Associate Exam Practice
+└── test/           # Tests per module
 ```
 
 ## 🚀 Sprint Overview
@@ -60,6 +61,15 @@
 - Public access to port 1433 blocked
 - `nslookup <db-fqdn>` resolves to 10.x address
 - Tests & docs pass
+
+### Sprint 6 — Terraform Associate Exam Practice (⏱ ~60 min)
+**Goal**: Test your Terraform knowledge with 60 practice questions similar to the HashiCorp Terraform Associate certification exam.
+
+**Definition of Done** ✅
+- Complete all 60 practice questions
+- Score ≥70% (42/60 questions) to pass
+- Review explanations for missed questions
+- Identify areas for additional study
 
 ### Bonus — Rename & Import (⏱ ~30 min)
 **Definition of Done** ✅
