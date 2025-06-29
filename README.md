@@ -106,6 +106,21 @@ make clean   # Clean up temporary files
 - Azure CLI
 - Go 1.19+ (for tests)
 
+## 🏗️ Module Architecture
+
+This workshop has been designed to teach **modular Terraform architecture**:
+
+- **Sprint 1**: Backend setup (foundation)
+- **Sprint 2**: Network module (local modules introduction)  
+- **Sprint 3**: Key Vault module (security patterns)
+- **Sprint 4**: App Service module (application hosting)
+- **Sprint 5**: Database module (data tier with private connectivity)
+- **Sprint 6**: Exam practice (knowledge validation)
+
+Each sprint demonstrates local modules with progression from monolithic to modular design. See:
+- 📖 [MODULE-USAGE-GUIDE.md](day4-lab/MODULE-USAGE-GUIDE.md) - Complete guide to module patterns
+- 🚀 [REGISTRY-MODULE-EXAMPLES.md](day4-lab/REGISTRY-MODULE-EXAMPLES.md) - Production-ready registry examples
+
 ## 🎯 Deliverables
 
 1. ✔️ Tick everything in each sprint checklist
