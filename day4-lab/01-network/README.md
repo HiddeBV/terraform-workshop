@@ -45,11 +45,11 @@ This lab demonstrates **local module usage** - one of the key patterns for organ
    }
    ```
 
-2. **Registry Modules** (see examples below):
+2. **Registry Modules** (see [REGISTRY-MODULE-EXAMPLES.md](../REGISTRY-MODULE-EXAMPLES.md)):
    ```hcl
    module "network" {
      source  = "Azure/network/azurerm"
-     version = "~> 3.0"
+     version = "~> 5.0"
      # ...
    }
    ```
@@ -61,6 +61,8 @@ This lab demonstrates **local module usage** - one of the key patterns for organ
      # ...
    }
    ```
+
+> 💡 **Next Steps**: After completing this workshop, check out [MODULE-USAGE-GUIDE.md](../MODULE-USAGE-GUIDE.md) and [REGISTRY-MODULE-EXAMPLES.md](../REGISTRY-MODULE-EXAMPLES.md) to learn about using Terraform Registry modules in production.
 
 ## Prerequisites
 
