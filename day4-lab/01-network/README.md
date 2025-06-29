@@ -1,10 +1,35 @@
 # Sprint 2 - Network
 
-This module creates the network foundation including VNet and Network Security Group (NSG) using **local modules** to demonstrate modular Terraform architecture.
+This lab teaches network infrastructure using **modular Terraform architecture**. Choose your learning path below!
 
-## Overview
+## 🛤️ Choose Your Learning Path
 
-Creates:
+### 🔨 Path 1: Build Your Own Module (Recommended)
+**Best for**: Learning module development, understanding every component
+- Start with starter templates in `modules/network-starter/`  
+- Build resources step-by-step with guided hints
+- Learn by doing - understand every line of code
+- **Time**: 45-60 minutes | **Learning**: Maximum
+
+### 🏭 Path 2: Use Complete Local Module
+**Best for**: Focus on module usage patterns, faster completion
+- Use ready-made module in `modules/network/`
+- Focus on module composition and configuration  
+- Learn module interfaces and integration
+- **Time**: 15-30 minutes | **Learning**: Moderate
+
+### 🌐 Path 3: Use Registry Module
+**Best for**: Production patterns, community best practices
+- Follow examples in [REGISTRY-MODULE-EXAMPLES.md](../REGISTRY-MODULE-EXAMPLES.md)
+- Learn how to integrate external modules
+- See production-ready implementations
+- **Time**: 20-30 minutes | **Learning**: Different focus
+
+> 💡 **New to modules?** Start with Path 1 to build foundational knowledge, then explore the others!
+
+## 📚 What You'll Create
+
+All paths create the same infrastructure:
 - Virtual Network (VNet) with multiple subnets
 - Network Security Group (NSG) with security rules
 - Subnet associations with NSG
@@ -12,57 +37,68 @@ Creates:
 
 ## Module Architecture
 
-This lab demonstrates **local module usage** - one of the key patterns for organizing Terraform code:
+This lab demonstrates **modular Terraform patterns** for organizing infrastructure code:
 
 ```
 01-network/
-├── main.tf              # Root module that calls the network module
+├── main.tf              # Root module - configure to use your chosen path
 ├── modules/
-│   └── network/         # Local module
-│       ├── main.tf      # Module resources
+│   ├── network-starter/ # 🔨 Build your own module (empty templates)
+│   │   ├── main.tf      # TODO: Add your resources here
+│   │   ├── variables.tf # Module inputs (provided)
+│   │   ├── outputs.tf   # Module outputs (template)
+│   │   └── README.md    # Building guide
+│   └── network/         # 🏭 Complete local module (ready to use)
+│       ├── main.tf      # All resources implemented
 │       ├── variables.tf # Module inputs
 │       ├── outputs.tf   # Module outputs
 │       └── README.md    # Module documentation
 ├── variables.tf         # Root module variables
-└── outputs.tf          # Root module outputs (pass-through from module)
+└── outputs.tf          # Root module outputs
 ```
 
-### Why Use Modules?
+## 🚀 Getting Started
 
-- **Reusability**: The network module can be reused across environments
-- **Organization**: Logical grouping of related resources
-- **Abstraction**: Hide complexity behind a simple interface
-- **Testing**: Modules can be tested independently
-- **Maintainability**: Changes are isolated within modules
+### For Path 1: Build Your Own Module
 
-### Module Types Available
+1. **Start with the starter template**:
+   ```bash
+   cd 01-network/modules/network-starter/
+   cat README.md  # Read the building guide
+   ```
 
-1. **Local Modules** (demonstrated here):
+2. **Configure main.tf to use your module**:
    ```hcl
    module "network" {
-     source = "./modules/network"
-     # ...
+     source = "./modules/network-starter"  # 👈 Point to your module
+     
+     # ... same variables as other paths
    }
    ```
 
-2. **Registry Modules** (see [REGISTRY-MODULE-EXAMPLES.md](../REGISTRY-MODULE-EXAMPLES.md)):
+3. **Build incrementally**:
+   - Fill in `modules/network-starter/main.tf`
+   - Test with `terraform validate` and `terraform plan`
+   - Aim for exactly 6 resources
+
+### For Path 2: Use Complete Module
+
+1. **Use the provided module** (already configured):
    ```hcl
    module "network" {
-     source  = "Azure/network/azurerm"
-     version = "~> 5.0"
-     # ...
+     source = "./modules/network"  # 👈 Complete implementation
+     
+     # ... your configuration
    }
    ```
 
-3. **Git Modules**:
-   ```hcl
-   module "network" {
-     source = "git::https://github.com/org/terraform-modules.git//azure/network"
-     # ...
-   }
-   ```
+2. **Focus on configuration and usage patterns**
 
-> 💡 **Next Steps**: After completing this workshop, check out [MODULE-USAGE-GUIDE.md](../MODULE-USAGE-GUIDE.md) and [REGISTRY-MODULE-EXAMPLES.md](../REGISTRY-MODULE-EXAMPLES.md) to learn about using Terraform Registry modules in production.
+### For Path 3: Use Registry Module
+
+1. **Follow the registry examples**:
+   - See [REGISTRY-MODULE-EXAMPLES.md](../REGISTRY-MODULE-EXAMPLES.md)
+   - Replace the local module source with registry source
 
 ## Prerequisites
 
@@ -71,13 +107,58 @@ This lab demonstrates **local module usage** - one of the key patterns for organ
 
 ## Usage
 
-1. Configure backend using outputs from Sprint 1
-2. Initialize and apply:
+### Step 1: Choose Your Path
+Decide whether to build your own module, use the complete module, or try registry modules.
+
+### Step 2: Configure Backend
+Use outputs from Sprint 1 to configure your backend in `main.tf`.
+
+### Step 3: Initialize and Plan
 ```bash
 terraform init
-terraform plan  # Should show 5 resources
+terraform plan  # Should show exactly 6 resources for all paths
+```
+
+### Step 4: Apply
+```bash
 terraform apply
 ```
+
+## Resources Created
+
+All paths create exactly **6 resources**:
+1. `azurerm_resource_group.network` - Resource group for network resources
+2. `azurerm_virtual_network.main` - Main VNet
+3. `azurerm_subnet.app` - Subnet for App Service (with delegation)
+4. `azurerm_subnet.data` - Subnet for database (private endpoint ready)
+5. `azurerm_network_security_group.app` - NSG for application tier
+6. `azurerm_subnet_network_security_group_association.app` - NSG association
+
+## Learning Outcomes
+
+### Build Your Own Path ✨
+- Understanding of each resource and its purpose
+- Experience with Terraform resource syntax
+- Knowledge of Azure networking concepts
+- Confidence in module development
+
+### Complete Module Path ✨
+- Focus on module interfaces and composition
+- Understanding of module input/output patterns
+- Faster completion with learning about usage
+
+### Registry Module Path ✨
+- Experience with external module integration
+- Understanding of versioning and dependencies
+- Production-ready patterns and configurations
+
+## 💡 Pro Tips
+
+- **Start Simple**: If building your own, implement one resource at a time
+- **Test Frequently**: Use `terraform validate` and `terraform plan` often
+- **Compare Approaches**: Try multiple paths to see the differences
+- **Read Documentation**: Use Azure docs and Terraform provider docs
+- **Ask for Help**: Check the starter module README for hints
 
 ## Resources Created
 
