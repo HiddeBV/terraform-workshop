@@ -1,6 +1,6 @@
 # Sprint 2 - Network
 
-This module creates the network foundation including VNet and Network Security Group (NSG).
+This module creates the network foundation including VNet and Network Security Group (NSG) using **local modules** to demonstrate modular Terraform architecture.
 
 ## Overview
 
@@ -8,7 +8,59 @@ Creates:
 - Virtual Network (VNet) with multiple subnets
 - Network Security Group (NSG) with security rules
 - Subnet associations with NSG
-- Public IP for potential future use
+- Resource group for network resources
+
+## Module Architecture
+
+This lab demonstrates **local module usage** - one of the key patterns for organizing Terraform code:
+
+```
+01-network/
+├── main.tf              # Root module that calls the network module
+├── modules/
+│   └── network/         # Local module
+│       ├── main.tf      # Module resources
+│       ├── variables.tf # Module inputs
+│       ├── outputs.tf   # Module outputs
+│       └── README.md    # Module documentation
+├── variables.tf         # Root module variables
+└── outputs.tf          # Root module outputs (pass-through from module)
+```
+
+### Why Use Modules?
+
+- **Reusability**: The network module can be reused across environments
+- **Organization**: Logical grouping of related resources
+- **Abstraction**: Hide complexity behind a simple interface
+- **Testing**: Modules can be tested independently
+- **Maintainability**: Changes are isolated within modules
+
+### Module Types Available
+
+1. **Local Modules** (demonstrated here):
+   ```hcl
+   module "network" {
+     source = "./modules/network"
+     # ...
+   }
+   ```
+
+2. **Registry Modules** (see examples below):
+   ```hcl
+   module "network" {
+     source  = "Azure/network/azurerm"
+     version = "~> 3.0"
+     # ...
+   }
+   ```
+
+3. **Git Modules**:
+   ```hcl
+   module "network" {
+     source = "git::https://github.com/org/terraform-modules.git//azure/network"
+     # ...
+   }
+   ```
 
 ## Prerequisites
 
