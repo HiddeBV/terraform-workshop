@@ -36,7 +36,7 @@
 #   # Your implementation here
 #   
 #   # Enable private endpoint support:
-#   # private_endpoint_network_policies_enabled = false
+#   # private_endpoint_network_policies = "Disabled"
 # }
 
 # TODO: Step 5 - Create Network Security Group

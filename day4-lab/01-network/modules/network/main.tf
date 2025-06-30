@@ -41,7 +41,7 @@ resource "azurerm_subnet" "data" {
   address_prefixes     = [var.data_subnet_address_prefix]
   
   # Enable private endpoint support
-  private_endpoint_network_policies_enabled = false
+  private_endpoint_network_policies = "Disabled"
 }
 
 # Network Security Group for App subnet

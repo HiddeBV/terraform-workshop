@@ -1,0 +1,33 @@
+# Example terraform.tfvars for Sprint 5 - SQL Database & Private Endpoint
+# Copy this file to terraform.tfvars and customize for your environment
+
+# Dependencies from previous labs
+network_resource_group_name   = "rg-terraform-network"    # From Sprint 2 output: resource_group_name
+keyvault_resource_group_name  = "rg-terraform-keyvault"   # From Sprint 3 output: resource_group_name
+vnet_name                     = "vnet-workshop"           # From Sprint 2 output: vnet_name
+data_subnet_name              = "snet-data"               # From Sprint 2 output: data_subnet_name
+key_vault_name                = "kv-workshop-xxxxxxxx"    # From Sprint 3 output: key_vault_name (with suffix)
+nsg_name                      = "nsg-workshop-app"        # From Sprint 2 (derived from nsg_name_prefix)
+
+# Basic Configuration
+resource_group_name = "rg-terraform-data"
+location           = "West Europe"
+
+# SQL Server Configuration
+sql_server_name           = "sql-workshop-server"
+sql_database_name         = "workshop-db"
+sql_admin_username        = "workshopadmin"
+private_endpoint_name     = "pe-sql-workshop"
+
+# Azure AD Admin Configuration (optional - use your own values)
+azuread_admin_login       = "workshop-admin"
+azuread_admin_object_id   = ""  # Your Azure AD object ID
+azuread_admin_tenant_id   = ""  # Your Azure AD tenant ID
+
+# Tags
+tags = {
+  Environment = "workshop"
+  Sprint      = "05-data"
+  ManagedBy   = "terraform"
+  Owner       = "your-name"
+}

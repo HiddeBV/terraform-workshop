@@ -1,0 +1,27 @@
+# Example terraform.tfvars for Sprint 3 - Key Vault
+# Copy this file to terraform.tfvars and customize for your environment
+
+# Dependencies from previous labs
+network_resource_group_name = "rg-terraform-network"  # From Sprint 2 output: resource_group_name
+
+# Basic Configuration
+resource_group_name = "rg-terraform-keyvault"
+location           = "West Europe"
+
+# Key Vault Configuration
+key_vault_name            = "kv-workshop"  # Will be suffixed with random string
+managed_identity_name     = "id-workshop-app"
+
+# Database Configuration (for secrets)
+database_server_name       = "sql-workshop-server"
+database_name             = "workshop-db"
+database_admin_username   = "workshopadmin"
+database_admin_password   = "Workshop123!"  # Change this in production!
+
+# Tags
+tags = {
+  Environment = "workshop"
+  Sprint      = "03-keyvault"
+  ManagedBy   = "terraform"
+  Owner       = "your-name"
+}
