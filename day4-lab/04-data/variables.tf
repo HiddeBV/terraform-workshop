@@ -74,6 +74,16 @@ variable "azuread_admin_tenant_id" {
   default     = ""
 }
 
+variable "keyvault_resource_group_name" {
+  description = "Name of the resource group containing Key Vault resources (from Sprint 3)"
+  type        = string
+}
+
+variable "key_vault_name" {
+  description = "Name of the Key Vault (from Sprint 3)"
+  type        = string
+}
+
 variable "tags" {
   description = "Tags to apply to all resources"
   type        = map(string)
